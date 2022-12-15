@@ -14,8 +14,12 @@ int genRandom(int from)
     return rand() % from;
 }
 
-void mouseMove()
+int main()
 {
+    srand(time(0)); // Initialize random number generator.
+
+    std::cout << "Moving randomly, press ctrl+c to stop!\n";
+
     Display *displayMain = XOpenDisplay(0);
 
     Screen *s DefaultScreenOfDisplay(displayMain);
@@ -23,30 +27,21 @@ void mouseMove()
 
     Window root_window = XRootWindow(displayMain, scr);
 
-    int rx = genRandom(s->width), ry = genRandom(s->height);
-
-    // std::cout << "move " << rx << " " << ry << std::endl;
-
-    if (displayMain == NULL)
-    {
-        fprintf(stderr, "Errore nell'apertura del Display !!!\n");
-        exit(EXIT_FAILURE);
-    }
-
-    XWarpPointer(displayMain, None, root_window, 0, 0, 0, 0, rx, ry);
-
-    XFlush(displayMain);
-}
-
-int main()
-{
-    srand(time(0)); // Initialize random number generator.
-
-    std::cout << "Moving randomly, press ctrl+c to stop!\n";
-
     while (1)
     {
-        mouseMove();
+        int rx = genRandom(s->width), ry = genRandom(s->height);
+
+        // std::cout << "move " << rx << " " << ry << std::endl;
+
+        if (displayMain == NULL)
+        {
+            fprintf(stderr, "Errore nell'apertura del Display !!!\n");
+            exit(EXIT_FAILURE);
+        }
+
+        XWarpPointer(displayMain, None, root_window, 0, 0, 0, 0, rx, ry);
+
+        XFlush(displayMain);
         usleep(5 * MICRO_SECOND);
     }
     return 0;
