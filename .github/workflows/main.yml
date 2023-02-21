@@ -13,9 +13,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      
-      - name: log json
-        run: echo ${{ secrets.TEST_JSON }}
-      
+
       - name: docker test
         run: docker
