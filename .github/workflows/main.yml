@@ -17,5 +17,5 @@ jobs:
       - name: log json
         run: echo ${{ secrets.TEST_JSON }}
       
-      - name: docker v
-        run: docker -v
+      - name: docker test
+        run: docker
